@@ -9,36 +9,35 @@ module.exports = (sequelize: Sequelize) => {
       unique: true,
     },
 
-    name: {
+    full_name: {
       type: DataType.STRING(255),
       allowNull: false,
     },
   
-    phone: {
+    phone_number: {
       type: DataType.STRING(255),
       allowNull: false,
     },
   
-    date: {
+    start_date: {
       type: DataType.STRING(255),
       allowNull: true,
     },
   
-    language: {
+    preferred_language: {
       type: DataType.STRING(255),
       allowNull: false,
     },
   
-    howfound: {
+    how_found: {
       type: DataType.STRING(255),
       allowNull: false,
     },
   
-    newlettersub: {
+    newsletter_subscription: {
       type: DataType.STRING(255),
       allowNull: true,
       defaultValue: false,
-      field: "newlettersub"
     },
   }, { timestamps: false })
 }

@@ -13,17 +13,17 @@ const { Answer } = require('../db/index');
 function postAnswer(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, phone, date, language, howfound, newlettersub } = req.body;
-            if (!name || !phone || !language || !howfound) {
+            const { full_name, phone_number, start_date, preferred_language, how_found, newsletter_subscription } = req.body;
+            if (!full_name || !phone_number || !preferred_language || !how_found) {
                 return res.status(401).send("Missing Data");
             }
             const newAnswer = yield Answer.create({
-                name,
-                phone,
-                date,
-                language,
-                howfound,
-                newlettersub
+                full_name,
+                phone_number,
+                start_date,
+                preferred_language,
+                how_found,
+                newsletter_subscription
             });
             return res.status(201).json(newAnswer);
         }

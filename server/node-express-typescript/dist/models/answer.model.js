@@ -9,31 +9,30 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             unique: true,
         },
-        name: {
+        full_name: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: false,
         },
-        phone: {
+        phone_number: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: false,
         },
-        date: {
+        start_date: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: true,
         },
-        language: {
+        preferred_language: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: false,
         },
-        howfound: {
+        how_found: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: false,
         },
-        newlettersub: {
+        newsletter_subscription: {
             type: sequelize_typescript_1.DataType.STRING(255),
             allowNull: true,
             defaultValue: false,
-            field: "newlettersub"
         },
     }, { timestamps: false });
 };
