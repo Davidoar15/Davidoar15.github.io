@@ -1,4 +1,5 @@
-{
+let data: {}
+export default data = {
   "items": [
     {
       "type": "text",

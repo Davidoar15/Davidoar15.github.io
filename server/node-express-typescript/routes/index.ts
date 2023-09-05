@@ -1,7 +1,6 @@
 const router = require("express").Router();
+const { getDataForm } = require('../controllers/getData');
 
-router.get("/", () => {
-    console.log('Challenge');
-});
+router.get("/data", getDataForm);
 
 module.exports = router;
