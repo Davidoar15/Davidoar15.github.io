@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const data = require('../data');
 function getDataForm(req, res) {
     try {
-        let items = data.default.items;
+        const items = data.default.items;
         return res.status(200).json(items);
     }
     catch (error) {
