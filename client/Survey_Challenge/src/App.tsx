@@ -1,34 +1,38 @@
-import React from 'react'
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import './App.css'
+import Landing from './components/Landing';
+import Error from './components/Error';
+import Survey from './components/Survey';
+import Answers from './components/Answers';
+import EditAnswer from './components/EditAnswer';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      return;
+    }
+    const validRoutes = ["/survey", "/answers", "/edit"];
+    const isValidRoute = validRoutes.some((route) =>
+      location.pathname.startsWith(route)
+    );
+    if (!isValidRoute) {
+      navigate("/error");
+    }
+  }, [location.pathname, navigate]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/survey' element={<Survey />} />
+        <Route path='/answers' element={<Answers />} />
+        <Route path='/edit/:id' element={<EditAnswer />} />
+        <Route path='*' element={<Error />} />
+      </Routes>
     </>
   )
 }
