@@ -47,7 +47,7 @@ function Answer({ answer }) {
                 <h3>
                     Boletín Informativo 
                     <br/>
-                    {(newsletter_subscription === 'true') 
+                    {(newsletter_subscription === true) 
                         ? "Sí" 
                         : "No"
                     }

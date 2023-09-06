@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { createAnswer, getDataForm } from "../redux/actions";
 import { NavLink } from 'react-router-dom';
+import validateForm from './validate';
+import style from './styleError.module.css';
 
 function Survey({ dataForm, getDataForm, createAnswer }) {
     const [initialFetch, setInitialFetch] = useState(false);
@@ -11,8 +13,9 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
       start_date: '',
       preferred_language: '',
       how_found: '',
-      newsletter_subscription: 'false',
+      newsletter_subscription: false,
     })
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
       if (!initialFetch && !dataForm.length) {
@@ -30,16 +33,29 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
     const handleSubmit = async (event: any) => {
       event.preventDefault();
 
-      createAnswer(surveyDataForm);
-      alert("Datos Cargados. Gracias");
-      setSurveyDataForm({
-        ...surveyDataForm,
-        full_name: '',
-        phone_number: '',
-        start_date: '',
-        preferred_language: '',
-      });
-      window.location.reload();
+      const errors = validateForm(
+        surveyDataForm.full_name,
+        surveyDataForm.phone_number,
+        surveyDataForm.preferred_language,
+        surveyDataForm.how_found,
+      );
+      setErrors(errors);
+
+      if (Object.keys(errors).length === 0) {
+        createAnswer(surveyDataForm);
+        alert("Datos Cargados. Gracias");
+        setSurveyDataForm({
+          ...surveyDataForm,
+          full_name: '',
+          phone_number: '',
+          start_date: '',
+          preferred_language: '',
+        });
+        setErrors({});
+        window.location.reload();
+      } else {
+        alert("Error. Por favor, debe Responder los Campos necesarios")
+      }
     }
 
     return (
@@ -62,7 +78,12 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                       value={surveyDataForm.full_name}
                       onChange={handleChange}
                     />
+                  {errors.full_name && (
+                    <p className={style.error}>{errors.full_name}</p>
+                  )}
                   </div>
+                  
+                  <hr/>
 
                   <div>
                     <label>{FORM[1].label}</label>
@@ -73,7 +94,12 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                       value={surveyDataForm.phone_number}
                       onChange={handleChange}
                     />
+                    {errors.phone_number && (
+                      <p className={style.error}>{errors.phone_number}</p>
+                    )}
                   </div>
+
+                  <hr/>
 
                   <div>
                     <label>{FORM[2].label}</label>
@@ -85,6 +111,8 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                       onChange={handleChange}
                     />
                   </div>
+
+                  <hr/>
 
                   <div>
                     <label>{FORM[3].label}</label>
@@ -100,7 +128,12 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                       <option value={FORM[3].options[2].value}>{FORM[3].options[2].label}</option>
                       <option value={FORM[3].options[3].value}>{FORM[3].options[3].label}</option>
                     </select>
+                    {errors.preferred_language && (
+                      <p className={style.error}>{errors.preferred_language}</p>
+                    )}
                   </div>
+
+                  <hr/>
 
                   <div>
                       <legend>{FORM[4].label}</legend>
@@ -135,6 +168,11 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                         <label>{FORM[4].options[2].label}</label>
                       </div>
                   </div>
+                  {errors.how_found && (
+                    <p className={style.error}>{errors.how_found}</p>
+                  )}
+
+                  <hr/>
 
                   <div>
                     <label>{FORM[5].label}</label>
@@ -142,12 +180,13 @@ function Survey({ dataForm, getDataForm, createAnswer }) {
                     <input 
                       type={FORM[5].type} 
                       name={FORM[5].name}
-                      value={(surveyDataForm.newsletter_subscription === 'false') 
-                        ? 'true' : 'false'}
+                      checked={surveyDataForm.newsletter_subscription}
                       onChange={handleChange}
                     />
                     <label>Sí</label>
                   </div>   
+
+                  <hr/>
 
                   <div>
                     <button type={FORM[6].type}>{FORM[6].label}</button>  

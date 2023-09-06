@@ -35,7 +35,7 @@ module.exports = (sequelize: Sequelize) => {
     },
   
     newsletter_subscription: {
-      type: DataType.STRING(255),
+      type: DataType.BOOLEAN,
       allowNull: true,
       defaultValue: false,
     },

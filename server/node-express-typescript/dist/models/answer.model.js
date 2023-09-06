@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         newsletter_subscription: {
-            type: sequelize_typescript_1.DataType.STRING(255),
+            type: sequelize_typescript_1.DataType.BOOLEAN,
             allowNull: true,
             defaultValue: false,
         },
