@@ -2,7 +2,7 @@ import { Error } from "sequelize";
 const server = require("./app")
 const { conn } = require('./db/index');
 
-conn.sync({ force: true })
+conn.sync({ force: false })
     .then(() => {
         server.listen(3001, () => {
             console.log('⚡️[server]: Server is running at http://localhost:3001');
