@@ -4,8 +4,8 @@ function Error() {
 
   return (
     <div>
-        <div>
-          <img src={errorImage} alt='Page Error'/>
+        <div style={{width: "200px", height: "auto"}}>
+          <img style={{width: "100%", height: "100%"}} src={errorImage} alt='Page Error'/>
         </div>
         <h1>ERROR 404: Página No Encontrada</h1>
         <h3>
